@@ -15,18 +15,14 @@ class ClientsSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("CPF inválido")
         return value
 
-    def validate_cep(self, data):
-        cep = data.get("cep")
+    def create(self, validated_data):
+        cep = validated_data.get("cep")
         if cep:
             response = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
             if response.status_code == 200:
                 cep_data = response.json()
-                data['street'] = cep_data.get('logradouro', '')
-                data['neighborhood'] = cep_data.get('bairro', '')
-                data['city'] = cep_data.get('localidade', '')
-                data['uf'] = cep_data.get('uf', '')
-        return data
-
-
-    def create(self, validated_data):
+                validated_data['street'] = cep_data.get('logradouro', '')
+                validated_data['neighborhood'] = cep_data.get('bairro', '')
+                validated_data['city'] = cep_data.get('localidade', '')
+                validated_data['uf'] = cep_data.get('uf', '')
         return Clients.objects.create(**validated_data)
