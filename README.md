@@ -17,3 +17,10 @@ A aplicação contém as seguintes funcionalidades:
 - 📇 Cadastro, edição e listagem de clientes.
 - 🔍 Validação de **CPF**.
 - 🏡 Verificação de **CEP** com integração a serviço externo.
+
+🔗 Endpoints da API
+Método	URL	Nome da URL	Descrição
+POST	/clients/	client-create	Inserir novo cliente
+GET	/clients/<int:id>/	client-detail	Detalhar cliente específico
+PUT	/clients/<int:id>/update/	client-update	Atualizar dados do cliente
+DELETE	/clients/<int:id>/delete/	clients-delete	Remover cliente do sistema
